@@ -1,0 +1,56 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>违章记录 - 上传表单</title>
+</head>
+
+<body style="text-align:center; padding-top:50px">
+<h1> 违章上传 </h1>
+<form enctype="multipart/form-data" action="record.php" method="POST">
+	<table align="center">
+        <input type="hidden" id="date" name="date" value="2008-01-02"/>
+        <input type="hidden" id="time" name="time" value="12:12:12"/>
+        <input type="hidden" id="operid" name="operid" value="1000"/>
+        <input type="hidden" id="mobile" name="mobile" value="1"/>
+        <input type="hidden" id="DeviceID" name="DeviceID" value="2007001"/>
+        <tr>
+            <td><label for="employeeid">员工号：</label></td>
+            <td><input type="text" id="employeeid" name="employeeid" /></td>
+        </tr>
+        <tr>
+            <td><label for="typenum">违章条款：</label></td>
+            <td><input type="text" id="typenum" name="typenum" /></td>
+        </tr>
+        <tr>
+            <td><label for="place">违章地点：</label></td>
+            <td><input type="text" id="place" name="place" /></td>
+        </tr>
+        <tr>
+            <td><label for="photos">违章照片</label></td>
+        </tr>
+        <tr>
+            <td><label for="photo1">照片一:</label></td>
+            <td><input type="file" id="photo1" name="photo1" /></td>
+        </tr>
+<!--         <tr>
+            <td><label for="photo2">照片二:</label></td>
+            <td><input type="file" id="photo2" name="photo2" /></td>
+        </tr>
+        <tr>
+            <td><label for="photo3">照片三:</label></td>
+            <td><input type="file" id="photo3" name="photo3" /></td>
+        </tr>
+ -->        <tr>
+            <td>
+            </td>        
+            <td>
+                <input type="submit" value="上传" />
+            </td>
+        </tr>
+    </table>	
+</form>
+
+</body>
+
+</html>

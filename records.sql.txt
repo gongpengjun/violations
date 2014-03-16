@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS ap_ViolateRecord;
+CREATE TABLE ap_ViolateRecord
+(
+    RecordID INT NOT NULL auto_increment,
+    UserName    VARCHAR(64) NOT NULL,
+    EmployeeID  VARCHAR(64) NOT NULL,
+    DeptID INT NOT NULL,
+    DeptName    VARCHAR(64) NOT NULL,
+    ViolatePlace    VARCHAR(64), 
+    ViolateDate DATE    NOT NULL,
+    ViolateTime TIME    NOT NULL,
+    ViolateTypeID INT NOT NULL,
+    ViolateScores INT,
+    OperID INT NOT NULL,
+    CreateDate DATETIME  NOT NULL,
+    Deleted CHAR(1) NOT NULL DEFAULT '0',
+    Confirm  CHAR(1) NOT NULL,
+    BeforeScores INT,
+    AfterScores INT, 
+    Photo1 BLOB,
+    Photo2 BLOB,
+    Photo3 BLOB,
+    MobileRecord CHAR(1) NOT NULL DEFAULT '0',
+    MobileDevID INT  NOT NULL DEFAULT '0',
+    PRIMARY KEY(RecordID)
+) CHARSET=utf8;
+
+DELETE FROM ap_ViolateRecord;
+INSERT INTO ap_ViolateRecord (UserName, EmployeeID, DeptID, DeptName, ViolatePlace, ViolateDate, ViolateTime, ViolateTypeID, ViolateScores, OperID, CreateDate, Deleted, Confirm, BeforeScores, AfterScores, MobileRecord, MobileDevID) 
+VALUES ('张三', 1001, 1001, '安保部', '行李仓库门口', '2008-12-26', '16:23:55', 1003, 6, 1000, '2008-12-26 16:23:55', 0, 0, 1000, 994, 1, 101);
+
+INSERT INTO ap_ViolateRecord 
+(UserName, EmployeeID, DeptID, DeptName, ViolatePlace, ViolateDate, ViolateTime, ViolateTypeID, ViolateScores, OperID, CreateDate, Deleted, Confirm, BeforeScores, AfterScores, MobileRecord, MobileDevID) 
+VALUES ('李四', 1002, 1002, '财务部', '停机坪附近', '2014-01-29', '20:51:50', 1007, 3, 1000, '2014-01-29 20:52:05', 0, 0, 1000, 997, 1, 102);
+
+INSERT INTO ap_ViolateRecord (UserName) VALUES('placeholder');
+UPDATE ap_ViolateRecord SET `UserName` = '巩鹏军',`EmployeeID` = '1001' WHERE RecordID = LAST_INSERT_ID();
