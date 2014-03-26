@@ -20,7 +20,7 @@ try
     // get all employee
     $sql = "SELECT cm_lc_userinfo . * , cm_lc_deptinfo.DeptName " .
             "FROM cm_lc_userinfo " .
-            "INNER JOIN cm_lc_deptinfo";
+            "INNER JOIN cm_lc_deptinfo ON cm_lc_deptinfo.DeptID = cm_lc_userinfo.DeptID";
     $query = mysql_query($sql);
     if(!$query)
         throw new Exception(mysql_error());
