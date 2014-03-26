@@ -4,10 +4,13 @@
 header("Content-Type: application/json; charset=utf-8");
 
 require_once('./lib/typeVersion.php');
+require_once('./lib/employeeVersion.php');
 
 try {
-    $version = typeVersion();
-    echo json_encode( array( "version" => $version ) );
+    $typeVersion = typeVersion();
+    $employeeVersion = employeeVersion();
+    echo json_encode( array( "type_version" => $typeVersion, "employee_version" => $employeeVersion ) );
+
 } catch (Exception $e) {
     json_encode(
         (object)array(
