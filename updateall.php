@@ -8,16 +8,33 @@ require_once('./lib/employeeVersion.php');
 try
 {
     // get version
-    $version = employeeVersion();
+    $tVersion = typeVersion();
+    $eVersion = employeeVersion();
 
-    if(isset($_REQUEST['version'])) {
-        $oldversion = (int)$_REQUEST['version'];
-        if(is_int($oldversion) && $oldversion >= $version) {
+    if(isset($_REQUEST['type_version']) && isset($_REQUEST['employee_version'])) {
+        $oldTVersion = (int)$_REQUEST['type_version'];
+        if(is_int($oldTVersion) && $oldTVersion >= $tVersion && is_int($oldEVersion) && $oldEVersion >= $eVersion) {
             header("HTTP/1.1 304 Not Modified");
             exit;
         }
     }
 
+    // get types
+    $sql = "SELECT ap_ViolateCategory.ViolateCategoryID, ViolateCategoryName, ViolateTypeNum, ViolateTypeName, ViolateScores " .
+            "FROM ap_ViolateType, ap_ViolateCategory " .
+            "WHERE ap_ViolateType.ViolateCategoryID = ap_ViolateCategory.ViolateCategoryID";
+    $query = mysql_query($sql);
+    if(!$query)
+        throw new Exception(mysql_error());
+    $numrows = mysql_num_rows($query);
+    if($numrows == 0)
+        throw new Exception('no violate type data in database.');
+
+    $tRows = array();
+    while($row = mysql_fetch_object($query)) {
+        $tRows[] = $row;
+    }
+    
     // get all employee
     $sql = "SELECT cm_lc_userinfo . * , cm_lc_deptinfo.DeptName " .
             "FROM cm_lc_userinfo " .
@@ -29,14 +46,16 @@ try
     if($numrows == 0)
         throw new Exception('no employee data in database.');
 
-    $rows = array();
+    $eRows = array();
     while($row = mysql_fetch_object($query)) {
-        $rows[] = $row;
+        $eRows[] = $row;
     }
     
     $result = (object)array( 
-        @"version" => "$version",
-        @"employees" => $rows, 
+        @"type_version" => "$tVersion",
+        @"types" => $tRows, 
+        @"employee_version" => "$eVersion",
+        @"employees" => $eRows, 
     );
     echo json_encode($result);    
 } 
